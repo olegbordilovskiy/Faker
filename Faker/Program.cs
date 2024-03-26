@@ -4,10 +4,10 @@
 	{
 		static void Main(string[] args)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				Console.WriteLine($"{Generator.GetRandomDateTime()}");
-			}
+			var faker = new Faker.Faker();
+			TestClass testClass = faker.Create<TestClass>();
+			Console.WriteLine("df");
+
 			
 		}
 	}
