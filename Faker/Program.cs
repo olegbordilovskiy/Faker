@@ -5,10 +5,9 @@
 		static void Main(string[] args)
 		{
 			var faker = new Faker.Faker();
-			TestClass testClass = faker.Create<TestClass>();
+			DtoClass1 testClass = faker.Create<DtoClass1>();
 			Console.WriteLine("df");
 
-			
 		}
 	}
 }

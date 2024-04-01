@@ -9,17 +9,25 @@ namespace Faker.Faker
 {
 	public class Faker : IFaker
 	{
+		private HashSet<Type> hashSet = new HashSet<Type>();
 		public T Create<T>()
 		{
 			return (T)Create(typeof(T));
 		}
 		private object Create(Type type)
 		{
+			if (hashSet.Contains(type))
+			{
+				return null;
+			}
 			if (type.GetCustomAttributes(typeof(DtoAttribute), true).Length > 0)
 			{
+
 				var instance = Activator.CreateInstance(type);
 
-				var propertiesAndFields = type.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+				hashSet.Add(type);
+
+				var propertiesAndFields = type.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic)
 											   .Where(member => member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property)
 											   .ToList();
 
@@ -29,7 +37,9 @@ namespace Faker.Faker
 
 					if (memberType.GetCustomAttributes(typeof(DtoAttribute), true).Length > 0)
 					{
+
 						var memberValue = Create(memberType);
+
 						if (member is PropertyInfo property)
 						{
 							property.SetValue(instance, memberValue);
