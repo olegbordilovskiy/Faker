@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Faker\Faker.csproj" />
+  </ItemGroup>
+
 </Project>

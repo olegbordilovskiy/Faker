@@ -9,6 +9,7 @@ namespace Faker
 	[Dto]
 	internal class DtoClass1
 	{
+		public byte field {  get; set; }
 		public int IntField { get; set; }
 		public long LongField { get; set; }
 		public double DoubleField { get; set; }
