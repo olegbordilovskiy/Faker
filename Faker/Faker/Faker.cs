@@ -23,7 +23,38 @@ namespace Faker.Faker
 			if (type.GetCustomAttributes(typeof(DtoAttribute), true).Length > 0)
 			{
 
-				var instance = Activator.CreateInstance(type);
+				//var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
+				var constructors = type.GetConstructors();
+				var constructor = constructors.OrderByDescending(c => c.GetParameters().Length).FirstOrDefault();
+				object? instance = null;
+
+				if (constructor != null)
+				{
+
+					var parameters = constructor.GetParameters();
+					object[] args = new object[parameters.Length];
+
+					for (int i = 0; i < parameters.Length; i++)
+					{
+						var parameterType = parameters[i].ParameterType;
+
+						if (parameterType.GetCustomAttributes(typeof(DtoAttribute), true).Length > 0)
+						{
+							args[i] = Create(parameterType);
+						}
+						else
+						{
+							args[i] = Generator.GenerateRandom(parameterType);
+						}
+					}
+					hashSet.Clear();
+					instance = constructor.Invoke(args);
+				}
+				else
+				{
+					constructor = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
+					instance = constructor.Invoke(null);
+				}
 
 				hashSet.Add(type);
 
@@ -65,6 +96,7 @@ namespace Faker.Faker
 
 				return instance;
 			}
+
 			else
 			{
 				return Generator.GenerateRandom(type);

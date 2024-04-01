@@ -13,5 +13,6 @@ namespace Faker
 		public DateTime DateTimeField { get; set; }
 		public List<int> IntList { get; set; }
 		public DtoClass1 dtoClass1 { get; set; }
+		private DtoClass2() { }
 	}
 }

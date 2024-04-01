@@ -20,6 +20,18 @@ namespace Faker
 		public List<int> IntList { get; set; }
 		public List<string> StringList { get; set; }
 		public DtoClass2 dtoClass { get; set; }
-		public DtoClass1() { }
+		private DtoClass1() { }
+		public DtoClass1(int intField, string stringField)
+		{
+			IntField = intField;
+			StringField = stringField;
+		}
+		public DtoClass1(int intField, List<int> intList, DtoClass2 dtoClass)
+		{
+			IntField = intField;
+			IntList = intList;
+			this.dtoClass = dtoClass;
+		}
 	}
+
 }

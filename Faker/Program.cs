@@ -6,8 +6,6 @@
 		{
 			var faker = new Faker.Faker();
 			DtoClass1 testClass = faker.Create<DtoClass1>();
-			Console.WriteLine("df");
-
 		}
 	}
 }
