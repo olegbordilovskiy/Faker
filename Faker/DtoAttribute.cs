@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-	internal class DtoAttribute:Attribute
+	public class DtoAttribute:Attribute
 	{
 	}
 }
