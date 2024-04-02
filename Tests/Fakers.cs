@@ -47,16 +47,18 @@ namespace Tests
 			Assert.NotNull(dto.StringList);
 		}
 
-		//[Fact]
-		//public void Create_DTO_With_Cyclic_Dependencies()
-		//{
-		//	var faker = new Faker.Faker.Faker();
-		//	var dto = faker.Create<DtoWithCyclicDependencies>();
+		[Fact]
+		public void Create_DTO_With_Cyclic_Dependencies()
+		{
+			var faker = new Faker.Faker.Faker();
+			var dto = faker.Create<WithPublicProperties>();
 
-		//	Assert.NotNull(dto);
-		//	Assert.NotNull(dto.Child);
-		//	Assert.NotNull(dto.Child.Parent);
-		//	Assert.Same(dto, dto.Child.Parent);
-		//}
+			Assert.NotNull(dto);
+			Assert.NotNull(dto.secondDto);
+			Assert.NotNull(dto.secondDto.DateTimeField);
+			Assert.NotNull(dto.secondDto.IntList);
+			Assert.NotNull(dto.secondDto.StringField);
+			Assert.Null(dto.secondDto.FirstDto);
+		}
 	}
 }
